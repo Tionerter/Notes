@@ -6,3 +6,7 @@
 
 加粗\textbf{文字}
 
+设置字号与颜色<font size =2 color=FFFFFF>{文字}<font>
+
+
+
