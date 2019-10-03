@@ -49,19 +49,19 @@ $$
 
 斜体，非斜体
 
-|      |                            运算符                            |    描述    |
-| :--: | :----------------------------------------------------------: | :--------: |
-|  1   |                          $$\cdot$$                           |    点乘    |
-|  2   |                          $$\times$$                          |    叉乘    |
-|  3   |                       $$\textbf{v}^T$$                       | 向量的转置 |
-|  4   |                           $$\bot$$                           |            |
-|  5   |               $$\lvert\quad\cdot\quad\rvert$$                |            |
-|  6   |               $$\lvert\quad\cdot\quad\rvert$$                |            |
-|  7   |               $$\lVert\quad\cdot\quad\rVert$$                |            |
-|  8   |                          $$x^{+}$$                           |            |
-|  9   |                         $$x^{\mp}$$                          |            |
-|  10  |                            $$n!$$                            |            |
-|  11  | $$\begin{gather*}\begin{pmatrix}n\\k\end{pmatrix}\end{gather*}$$ |            |
+|      |                            运算符                            |     描述     |
+| :--: | :----------------------------------------------------------: | :----------: |
+|  1   |                          $$\cdot$$                           |     点乘     |
+|  2   |                          $$\times$$                          |     叉乘     |
+|  3   |                       $$\textbf{v}^T$$                       |  向量的转置  |
+|  4   |                           $$\bot$$                           |              |
+|  5   |               $$\lvert\quad\cdot\quad\rvert$$                |              |
+|  6   |               $$\lvert\quad\cdot\quad\rvert$$                |  矩阵行列式  |
+|  7   |               $$\lVert\quad\cdot\quad\rVert$$                |              |
+|  8   |                          $$x^{+}$$                           | x的值不小于0 |
+|  9   |                         $$x^{\mp}$$                          |  x限制在0~1  |
+|  10  |                            $$n!$$                            |     梯乘     |
+|  11  | $$\begin{gather*}\begin{pmatrix}n\\k\end{pmatrix}\end{gather*}$$ |              |
 
 
 $$
