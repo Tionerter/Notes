@@ -1481,9 +1481,15 @@ $$
 
 ​		着色模型通常具有用于控制外观变化的属性。设置这些属性的值是确定对象外观的下一步。我们的示例模型只有一种属性，即表面颜色，如图5.2的底部图像所示。
 
+![1570721010717](C:\Users\tionerter\AppData\Roaming\Typora\typora-user-images\1570721010717.png)
+
 ​		<font size=2>图5.1。顶部图像来自使用虚幻引擎渲染的真实风景场景。底部图片来自Campo Santo的游戏Firewatch，该游戏采用说明性艺术风格设计。 （上图由G̈okhanKaradayi提供，下图由Campo Santo提供。）</font>
 
+​	![1570721041515](C:\Users\tionerter\AppData\Roaming\Typora\typora-user-images\1570721041515.png)
+
 ​		<font size=2>图5.2。风格化的着色模型，结合了Gooch着色和高光效果。顶部图像显示了具有中性表面颜色的复杂对象。下图显示了具有各种不同表面颜色的球体。 （来自计算机图形档案[1172]的中国龙网格，来自斯坦福3D扫描存储库的原始模型。）</font>
+
+![1570721057335](C:\Users\tionerter\AppData\Roaming\Typora\typora-user-images\1570721057335.png)
 
 ​		<font size=2>图5.3。单位长度矢量输入到示例阴影模型（以及其他大多数着色模型）：表面法线n，视图矢量v和光照方向l。</font>
 
@@ -1492,8 +1498,25 @@ $$
 ​		现在，我们已经定义了阴影模型的所有输入，接下来可以看一下模型本身的数学定义：
 
 ​		
-
+$$
+\mathbf{c}_{shaded}=
+s\textbf{c}_{highlight}+(1-s)(t\textbf{c}_{warm}+(1-t)\textbf{c}_{cool}).
+\qquad\qquad(5.1)
+$$
 ​		
+$$
+\begin{align}
+\textbf{c}_{cool}&=(0,0,0.55)+0.25\textbf{c}_{surface},\\
+\textbf{c}_{warm}&=(0.3,0.3,0)+0.25\textbf{c}_{surface},\\
+\textbf{c}_{highlight}&=(1,1,1),\\
+t&=\frac{\mathbf{n}\cdot\mathbf{l}+1}{2},
+\qquad\qquad(5.2)
+\\
+r&=2(\mathbf{n}\cdot\mathbf{l})\mathbf{n}-\mathbf{l},\\
+s&=(100(\mathbf{r}\cdot\mathbf{v})-97)^{\mp}.
+\end{align}
+$$
+
 
 ## 6.纹理
 
