@@ -1338,7 +1338,7 @@ i^2&=j^2=k^2=-1,jk=-kj=i,ki=-ik=j,ij=-ji=k
 $$
 ​		变量$$q_w$$被称为四元数$$\hat{\textbf{q}}$$的实部。虚部为$$\mathbf{\mathbf{q}_v}$$，i，j和k称为虚部。
 
-​		对于虚部$$\mathbf{\mathbf{q}_v}$$，我们可以使用所有法向矢量运算，例如加法，缩放，点积，叉积等等。使用四元数的定义，可以得出两个四元数qˆ和ˆr之间的乘法运算，如下所示。注意，虚部的乘法是不可交换的。
+​		对于虚部$$\mathbf{\mathbf{q}_v}$$，我们可以使用所有向量运算，例如加法，缩放，点积，叉积等等。使用四元数的定义，可以得出两个四元数$$\hat{\textbf{q}}$$和$$\hat{\textbf{r}}$$之间的乘法运算，如下所示。注意，虚部的乘法是不可交换的。
 
 ​		
 $$
@@ -1354,7 +1354,7 @@ q_wr_w-\mathbf{q}_v\cdot\mathbf{r}_v).
 $$
 ​		从该方程式可以看出，我们使用叉积和点积来计算两个四元数的乘法。
 
-​		除了四元数的定义外，还需要加法，共轭，范数和恒等式的定义：
+​		除了四元数的定义外，还需要加法，共轭，归一化和单位四元数的定义：
 
 ​		
 $$
@@ -1363,13 +1363,14 @@ $$
 (\mathbf{q}_v,q_w)+(\mathbf{r}_v,r_w)=
 (\mathbf{q}_v+\mathbf{r}_v,q_w+r_w).\\
 &共轭：\mathbf{\hat{q}}^*=(\mathbf{q}_v,q_w)^*=(-\mathbf{q}_v,q_w).\\
-&归一化：n(\mathbf{\hat{q}})=\sqrt{\hat{\mathbf{q}}^*\hat{\mathbf{q}}}
+&模：n(\mathbf{\hat{q}})=\sqrt{\hat{\mathbf{q}}^*\hat{\mathbf{q}}}
+=\sqrt{\hat{\mathbf{q}}\hat{\mathbf{q}}^*}
 =\sqrt{\mathbf{q}_v\cdot\mathbf{q}_v+q_w^2}\qquad\qquad(4.33)\\
 &\qquad\qquad\quad=\sqrt{q_x^2+q_y^2+q_z^2+q_w^2}.\\
-&特征:\mathbf{\hat{i}}=(\textbf 0,1)
+&单位四元数:\mathbf{\hat{i}}=(\textbf 0,1)
 \end{align}
 $$
-​		当简化n（qˆ）= √qˆqˆ ∗时（如上所示），虚部将抵消，仅保留实部。规范有时表示为|| qˆ || = n（qˆ）[1105]。上面的结果是，可以导出由q -1表示的乘法逆。方程qˆ−1qˆ = qˆqˆ−1 = 1对于逆必须成立（对于乘法逆来说是常见的）。我们从规范的定义中得出一个公式：
+​		当简化$$n(\mathbf{\hat{q}})=\sqrt{\hat{\mathbf{q}}^*\hat{\mathbf{q}}}$$时（如上所示），虚部将抵消，仅保留实部。规范有时表示为$$||\hat{\textbf{q}}||=n(\mathbf{\hat{q}})$$[1105]。通过上面的结果，可以得出由$$\hat{\textbf{q}}^{-1}$$表示的乘法逆运算。方程$$\hat{\mathbf{q}}^{-1}\hat{\mathbf{q}}=\hat{\mathbf{q}}\hat{\mathbf{q}}^{-1}=1$$对于逆计算必须成立（对于乘法逆运算来说是常见的）。我们从规范的定义中得出一个公式：
 
 ​		
 $$
@@ -1379,39 +1380,41 @@ n(\mathbf{\hat{q}})^2=
 \frac{\mathbf{\hat{q}\hat{q}^*}}{n(\mathbf{\hat{q}})^2}=1
 \qquad\qquad(4.34)
 $$
-​		这给出了乘法逆，如下所示：
+​		这给出了乘法逆运算，如下所示：
 
 ​		
 $$
-乘法逆：
+逆运算：
 \mathbf{\hat{q}}^{-1}=
 \frac{1}{n(\mathbf{\hat{q}})^2}\mathbf{\hat{q}}^*.
 \qquad\qquad(4.35)
 $$
-​		逆公式使用标量乘法，它是从公式4.3.1中看到的乘法得出的运算：sqˆ =（0，s）（qv，qw）=（sqv，sqw），q，s =（qv，qw ）（0，s）=（sqv，sqw），这意味着标量乘法是可交换的：sqˆ = qˆs =（sqv，sqw）。
+​		逆计算公式使用标量乘法，它是从公式4.31中的乘法得出的：$$s\hat{\textbf{q}}=(\textbf{0},s)(\textbf{q}_v,q_w)=(s\textbf{q}_v,sq_w)$$和$$\hat{\textbf{q}}s=(\textbf{q}_v,q_w)(\text{0},s)=(s\textbf{q}_v,sq_w)$$，这意味着标量乘法是可交换的：$$s\hat{\textbf{q}}=\hat{\textbf{q}}s=(s\hat{\textbf{q}}_v,sq_w)$$。
 
-​		以下规则集合很容易从定义中得出：
+​		以下规则很容易从定义中得出：
 
-​		
 $$
 \begin{align}
+共轭规则：\qquad
 (\hat{\mathbf{q}})^*=&\hat{\mathbf{q}},\\
 (\hat{\mathbf{q}}+\hat{\mathbf{r}})^*=&\hat{\mathbf{q}}^*+\hat{\mathbf{r}}^*,
 \qquad\qquad(4.36)\\
 (\hat{\mathbf{q}}\hat{\mathbf{r}})^*=&\hat{\mathbf{r}}^*\hat{\mathbf{q}}^*.
 \end{align}
 $$
-​		
 $$
 \begin{align}
+模规则：\qquad 
 n(\hat{\mathbf{q}}^*)=&n(\hat{\mathbf{q}}),\\
 n(\hat{\mathbf{q}}\hat{\mathbf{r}})=&n(\hat{\mathbf{q}})n(\hat{\mathbf{r}}).
 \qquad\qquad(4.37)
 \end{align}
 $$
 
+​		乘法定律：
 $$
 \begin{align}
+线性:\qquad 
 \hat{\mathbf{p}}(s\hat{\mathbf{q}}+t\hat{\mathbf{r}})=&
 s\hat{\mathbf{p}}\hat{\mathbf{q}}+t\hat{\mathbf{p}}\hat{\mathbf{r}},
 \\
@@ -1423,17 +1426,19 @@ $$
 
 ​		
 $$
+结合律:\qquad
 \hat{\mathbf{p}}(\hat{\mathbf{q}}\hat{\mathbf{r}})=
 (\hat{\mathbf{p}}\hat{\mathbf{q}})\hat{\mathbf{r}}
 $$
 
+​		使得$$n(\hat{\textbf{q}})=1$$的单位四元数$$\hat{\textbf{q}}=(\textbf{q}_v,q_w)$$。由此可以得出$$\hat{\textbf{q}} $$可写为
 $$
 \hat{\mathbf{q}}=(\sin\phi\mathbf{u}_q,\cos\phi)=
 \sin\phi\mathbf{u}_q+\cos\phi,
 \qquad\qquad(4.39)
 $$
 
-​	
+​		对于某些三维向量$$\textbf{u}_q$$，使得$$||\textbf{u}_q||=1$$，因为
 $$
 \begin{align}
 n(\hat{\mathbf{q}})&=n(\sin\phi\mathbf{u}_q,\cos\phi)=
@@ -1443,23 +1448,33 @@ n(\hat{\mathbf{q}})&=n(\sin\phi\mathbf{u}_q,\cos\phi)=
 \end{align}
 $$
 
+​		当且仅当$$\textbf{u}_q\cdot\textbf{u}_q=1=||\textbf{u}_q||^2$$。 正如在下一节中将看到的，单位四元数非常适合以最有效的方式创建旋转和方向。 但在那之前，需要介绍一些关于单元四元数额外的操作。
+
+​		对于复数，可以将二维单位向量写为$$\cos\phi+i\sin\phi=e^{i\phi}$$。 四元数的等效形式是
 $$
 \hat{\mathbf{q}}=\sin\phi\mathbf{u}_q+
 \cos\phi=e^{\phi\mathbf{u}_q}.
 \qquad\qquad(4.41)
 $$
 
+​		单位四元数的对数和幂函数来自公式4.41：
 $$
 \begin{align}
+对数函数：
 &\log(\hat{\mathbf{q}})=\log(e^{\phi\mathbf{u}_q})=\phi\mathbf{u}_q,
 \\
+幂函数：
 &\hat{\mathbf{q}}^t=(\sin\phi\mathbf{u}_q+\cos\phi)^t=
 e^{\phi t\mathbf{u}_q}=\sin(\phi t)\mathbf{u}_q+\cos(\phi t).
 \qquad\qquad(4.42)
 \end{align}
 $$
 
-#### 4.3.2 四元数变换
+​		
+
+​		<font size=2>图4.9。 由单位四元数$\hat{\textbf{q}}=(\sin\phi\textbf{u}_q,\cos\phi)$表示的旋转变换的图示。 变换围绕轴$\textbf{u}_q$旋转$2\phi$弧度。</font>
+
+####4.3.2 四元数变换
 
 $$
 \hat{\mathbf{q}}\hat{\mathbf{p}}\hat{\mathbf{q}}^{-1}
