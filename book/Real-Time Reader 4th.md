@@ -1801,9 +1801,143 @@ $$
 
 #### 4.7.1正交投影
 
-​			
+​		正交投影的特征是平行线在投影之后保持平行。 当使用正交投影观看场景时，无论与相机的距离如何，对象都保持相同的大小。 矩阵$\mathbf{P}_o$，如下所示，是一个简单的正投影投影矩阵，它使一个点的x轴和y轴分量保持不变，而将z轴分量设置为零，即正交投影在平面z = 0上：
+$$
+\textbf{P}_o=
+\begin{gather*}
+\begin{pmatrix}
+\begin{matrix}
+1&0&0&0
+\\ 
+0&1&0&0
+ \\
+0&0&0&0
+\\ 
+0&0&0&1
+\end{matrix}
+\end{pmatrix}.
+\qquad\qquad(4.62)
+\end{gather*}
+$$
+​		图4.17说明了这种投影的效果。 显然矩阵$\mathbf{P}_o$是不可逆的，因为其行列式$|\mathbf{P}_o|=0$。换句话说，变换从三维降为二维，并且无法检索丢失的维度。 使用这种正交投影进行查看的问题在于，它将正值z点和负z值点都投影到投影平面上。 通常将z值（以及x和y值）限制为一定的范围是很有用的，例如从n（近平面）到f（远平面）。近平面也被称为 front plane 或者 hither; 远平面也被称为back plane 或者 yon。这种限制是平行投影的目的。
 
-​	图4.17。 由公式4.62生成的简单正投影的三种不同视图。 当观看者沿着负z轴看时，可以看到此投影，这意味着该投影仅跳过（或设置为零）z坐标，同时保持x和y坐标。 请注意，z = 0两侧的对象都投影到投影平面上。
+![image-20191126225539056](C:\Users\tionerter\AppData\Roaming\Typora\typora-user-images\image-20191126225539056.png)
+
+​		<font size=2>图4.17。 由公式4.62生成的简单正交投影的三种不同视图。 当观看者沿着负z轴看时，可以看到此投影，这意味着该投影仅跳过（或设置为零）z坐标，同时保持x和y坐标。 请注意，z = 0两侧的对象都投影到投影平面上。</font>
+
+​		进行正交投影的更常见矩阵由六元组（l， r， b， t， n， f）表示，分别表示左侧，右侧，底部，顶部，近侧和远侧平面。 将由这些平面形成的与轴对齐的包围盒（AABB；请参见第22.2节中的定义）转换为以原点为中心的与轴对齐的立方体。 AABB的最小角为（l， b， n），最大角为（r， t， f）。 重要的是要认识到n> f，因为我们正朝着该空间体积的负z轴方向看。 我们的常识是，接近值应该比远端值低，因此可以让用户按原样提供它们，然后在内部取反它们。
+
+​		在OpenGL中，与轴对齐的立方体的最小角为（-1，-1，-1），最大角为（1，1， 1）; 在DirectX中，范围是（-1，-1， 0）至（1，1， 1）。 该立方体称为规范视图体积，而该体积中的坐标称为规范化设备坐标。 转换过程如图4.18所示。 转换为规范视图体积的原因是裁剪能更有效地执行在该体积中。
+
+​		转换为规范视图体积后，将要渲染的几何图形的顶点剪切到该立方体上。 不在立方体之外的几何图形最终被渲染通过将剩余的单位正方形映射到屏幕来。 此正交变换如下所示
+$$
+\textbf{P}_o=\textbf{S}(\textbf{s})\textbf{T}(\textbf{t})=
+\begin{gather*}
+\begin{pmatrix}
+\begin{matrix}
+\frac{2}{r-l}&0&0&0
+\\ 
+0&\frac{2}{t-b}&0&0
+ \\
+0&0&\frac{2}{f-n}&0
+\\ 
+0&0&0&1
+\end{matrix}
+\end{pmatrix}
+\begin{pmatrix}
+\begin{matrix}
+1&0&0&-\frac{l+r}{2}
+\\ 
+0&1&0&-\frac{t+b}{2}
+ \\
+0&0&1&-\frac{f+n}{2}
+\\ 
+0&0&0&1
+\end{matrix}
+\end{pmatrix}\\=
+\begin{pmatrix}
+\begin{matrix}
+\frac{2}{r-l}&0&0&-\frac{r+l}{r-l}
+\\ 
+0&\frac{2}{t-b}&0&-\frac{t+b}{t-b}
+ \\
+0&0&\frac{2}{f-n}&-\frac{f+n}{f-n}
+\\ 
+0&0&0&1
+\end{matrix}
+\end{pmatrix}
+\qquad\qquad(4.63)
+\end{gather*}
+$$
+​		正如这个等式如建议的，$\mathbf{P}_o$可以被写作变换的级联，平移变换$\mathbf{T}(\mathbf{t})$然后接着缩放矩阵$\mathbf{S}(\mathbf{s})$其中$\mathbf{s}=(2(r-l),2(t-b),2(f-n)),\mathbf{t}=(-(r+l)/2,-(t+b)/2,-(f+n)/2)$这个矩阵是可逆的（当且仅当$n\neq f,l\neq r,t\neq b$否者不存在逆矩阵）。即$\mathbf{P}_o^{-1}=\mathbf{T}(-\mathbf{t})\mathbf{S}((r-l)/2,(t-b)/2,(f-n)/2)$
+
+​		在计算机图形学中，投影后最常使用左侧坐标系，即，对于视口，x轴向右，y轴向上，而z轴进入视口。 因为按照我们定义AABB的方式，远值小于近值，所以正交变换将始终包含一个镜像变换。 对于这一点，可以说原始的AABB尺寸与目标尺寸相同，即都是标准视图体积。 然后AABB的坐标分量对于（l， b， n）是（-1，-1， 1），对于（r， t， f）是（1， 1，-1）。 将其应用于方程式4.63可得出
+$$
+\textbf{P}_o=
+\begin{gather*}
+\begin{pmatrix}
+\begin{matrix}
+1&0&0&0
+\\ 
+0&1&0&0
+ \\
+0&0&-1&0
+\\ 
+0&0&0&1
+\end{matrix}
+\end{pmatrix}.
+\qquad\qquad(4.64)
+\end{gather*}
+$$
+​		这是一个镜像矩阵。 这种镜像将右手观察坐标系（从负z轴向下看）转换为左手归一化设备坐标系。
+
+​		DirectX将z深度值映射到[0， 1]而不是OpenGL的[1， 1]。 这可以通过在正交矩阵之后应用简单的缩放和平移矩阵来完成，即
+
+​		
+$$
+\textbf{M}_{st}=
+\begin{gather*}
+\begin{pmatrix}
+\begin{matrix}
+1&0&0&0
+\\ 
+0&1&0&0
+ \\
+0&0&0.5&0.5
+\\ 
+0&0&0&1
+\end{matrix}
+\end{pmatrix}.
+\qquad\qquad(4.65)
+\end{gather*}
+$$
+​		所以在DirectX中使用的正交矩阵为
+
+​		
+$$
+\mathbf{P}_{o[0,1]}=
+\begin{gather*}
+\begin{pmatrix}
+\begin{matrix}
+\frac{2}{r-l}&0&0&-\frac{r+l}{r-l}
+\\ 
+0&\frac{2}{t-b}&0&-\frac{t+b}{t-b}
+ \\
+0&0&\frac{1}{f-n}&-\frac{n}{f-n}
+\\ 
+0&0&0&1
+\end{matrix}
+\end{pmatrix}
+\qquad\qquad(4.66)
+\end{gather*}
+$$
+​		由于DirectX使用行优先格式编写矩阵，因此这通常以转置形式出现。
+
+#### 4.7.2平行投影
+
+​		
+
+
 
 ## 5.着色基础
 
