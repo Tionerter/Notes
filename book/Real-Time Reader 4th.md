@@ -493,7 +493,7 @@ $$
 
   * 通过将整个帧缓冲区的内容用作经过程序变形的屏幕对齐网格上的纹理，可以使镜头变形，热雾，水波纹，页面卷曲和其他效果。
 
-  * 通过使用顶点纹理获取[40，1227]应用地形高度场。 
+  * 通过使用顶点纹理获取[40，1227]应用地形高度场。
 
 
 ​		使用顶点着色器完成的一些变形如图3.8所示。
@@ -703,7 +703,7 @@ $$
 \begin{pmatrix}
 1 & 0& 0 & t_x \\
 0 & 1& 0 & t_y \\
-0 & 0& 1 & t_z \\ 
+0 & 0& 1 & t_z \\
 0 & 0& 0 & 1
 \end{pmatrix}
 \end{gather*}
@@ -760,7 +760,7 @@ $$
 \begin{matrix}
 1 & 0& 0 & 0\\
 0& cos\phi&-\sin\phi& 0 \\
-0 &sin\phi&\cos\phi& 0 \\ 
+0 &sin\phi&\cos\phi& 0 \\
 0 & 0& 0 & 1
 \end{matrix}
 \end{pmatrix}
@@ -775,7 +775,7 @@ $$
 \begin{matrix}
 cos\phi & 0& sin\phi & 0\\
 0& 1&0& 0 \\
--sin\phi &0&\cos\phi& 0 \\ 
+-sin\phi &0&\cos\phi& 0 \\
 0 & 0& 0 & 1
 \end{matrix}
 \end{pmatrix}
@@ -790,7 +790,7 @@ $$
 \begin{matrix}
 cos\phi&sin\phi&0 & 0\\
 sin\phi&\cos\phi&0& 0 \\
-0 & 0&1&0 \\ 
+0 & 0&1&0 \\
 0 & 0& 0 & 1
 \end{matrix}
 \end{pmatrix}
@@ -833,7 +833,7 @@ $$
 \begin{matrix}
 S_{x}&0&0 & 0\\
 0&S_{y}&0& 0 \\
-0 & 0&S_{z}&0 \\ 
+0 & 0&S_{z}&0 \\
 0 & 0& 0 & 1
 \end{matrix}
 \end{pmatrix}
@@ -852,7 +852,7 @@ $$
 \begin{matrix}
 5&0&0 & 0\\
 0&5&0& 0 \\
-0 & 0&5&0 \\ 
+0 & 0&5&0 \\
 0 & 0& 0 & 1
 \end{matrix}
 \end{pmatrix},
@@ -862,7 +862,7 @@ $$
 \begin{matrix}
 1&0&0 & 0\\
 0&1&0& 0 \\
-0 & 0&1&0 \\ 
+0 & 0&1&0 \\
 0 & 0& 0 & 1/5
 \end{matrix}
 \end{pmatrix}.
@@ -930,7 +930,7 @@ $$
 \begin{matrix}
 1&0&s & 0\\
 0&1&0& 0 \\
-0 & 0&1&0 \\ 
+0 & 0&1&0 \\
 0 & 0& 0 & 1
 \end{matrix}
 \end{pmatrix}.
@@ -951,7 +951,7 @@ $$
 \begin{matrix}
 1 & 0 & s & 0\\
 0 & 1 & t & 0 \\
-0 & 0 & 1 & 0 \\ 
+0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 1
 \end{matrix}
 \end{pmatrix}.
@@ -988,7 +988,7 @@ $$
 \begin{matrix}
 r_{00} & r_{01} & r_{02} & t_{x}\\
 r_{10} & r_{11} & r_{12} & t_{y} \\
-r_{20} & r_{21} & r_{22} & t_{z} \\ 
+r_{20} & r_{21} & r_{22} & t_{z} \\
 0 & 0 & 0 & 1
 \end{matrix}
 \end{pmatrix}.
@@ -1047,7 +1047,7 @@ $$
 \begin{matrix}
 r_{x} & r_{y} & r_{z} & 0\\
 u_{x} & u_{y} & u_{z} & 0 \\
--v_{x} & -v_{y} & -v_{z} & 0 \\ 
+-v_{x} & -v_{y} & -v_{z} & 0 \\
 0 & 0 & 0 & 1
 \end{matrix}
 \end{pmatrix}}_{基底变换}
@@ -1056,7 +1056,7 @@ u_{x} & u_{y} & u_{z} & 0 \\
 \begin{matrix}
 1 & 0 & 0 & -t_{x}\\
 0 & 1 & 0 & -t_{y} \\
-0 & 0 & 1 & -t_{z} \\ 
+0 & 0 & 1 & -t_{z} \\
 0 & 0 & 0 & 1
 \end{matrix}
 \end{pmatrix}}_{平移变换}=
@@ -1064,7 +1064,7 @@ u_{x} & u_{y} & u_{z} & 0 \\
 \begin{matrix}
 r_{x} & r_{y} & r_{z} & -\mathbf{t\cdot r} \\
 u_{x} & u_{y} & u_{z} & -\mathbf{t\cdot u} \\
--v_{x} & -v_{y} & -v_{z} & \mathbf{t\cdot v} \\ 
+-v_{x} & -v_{y} & -v_{z} & \mathbf{t\cdot v} \\
 0 & 0 & 0 & 1
 \end{matrix}
 \end{pmatrix}
@@ -1150,7 +1150,7 @@ $$
 \begin{matrix}
 e_{00} & e_{01} & e_{02} \\
 e_{10} & e_{11} & e_{12} \\
-e_{20} & e_{21} & e_{22} \\ 
+e_{20} & e_{21} & e_{22} \\
 \end{matrix}
 \end{pmatrix}=
 \mathbf{R}_{z}(r)\mathbf{R}_{x}(p)(h).
@@ -1169,7 +1169,7 @@ $$
 \begin{matrix}
 \cos r\cos h-\sin r\sin p\sin h & -\sin r\cos p & \cos r\sin h+\sin r\sin p\cos h \\
 \sin r\cos h+\cos r\sin p\sin h & \cos r\cos p & \sin r\sin h-\cos r\sin p\cos h  \\
--\cos p\sin h&  \sin  p & \cos  p\cos h \\ 
+-\cos p\sin h&  \sin  p & \cos  p\cos h \\
 \end{matrix}
 \end{pmatrix}.
 \qquad\qquad(4.23)
@@ -1184,7 +1184,7 @@ $$
 -\tan r \quad and \quad
 \frac{e_{20}}{e_{22}}=
 \frac{-\sin h}{\cos h}=
--\tan h 
+-\tan h
 \qquad\qquad(4.24)
 $$
 ​		因此，如方程式4.25所示，使用函数atan2（y，x）（请参阅第1章第8页）从矩阵E提取欧拉参数h（head），p（pitch）和r（roll）：
@@ -1207,7 +1207,7 @@ $$
 \begin{matrix}
 \cos r & \sin r\cos p & \sin r\sin p \\
 \sin p & \cos r\cos p & -\cos r\sin p \\
-0 & \sin p & \cos p \\ 
+0 & \sin p & \cos p \\
 \end{matrix}
 \end{pmatrix}.
 \qquad\qquad(4.26)
@@ -1279,7 +1279,7 @@ $$
 \begin{matrix}
 \mathbf{r}^T \\
 \mathbf{s}^T \\
-\mathbf{t}^T\\ 
+\mathbf{t}^T\\
 \end{matrix}
 \end{pmatrix}.
 \qquad\qquad(4.28)
@@ -1302,18 +1302,18 @@ $$
 \begin{gather*}
 \begin{pmatrix}
 \begin{matrix}
-\cos\phi+(1+\cos\phi)r_x^2 
-& (1-\cos\phi)r_xr_y-r_z\sin\phi 
+\cos\phi+(1+\cos\phi)r_x^2
+& (1-\cos\phi)r_xr_y-r_z\sin\phi
 &(1-\cos\phi)r_xr_z+r_y\sin\phi
 \\
- (1-\cos\phi)r_xr_y+r_z\sin\phi 
- & \cos\phi+(1-\cos\phi)r_y^2 
- & (1-\cos\phi)r_yr_z-r_x\sin\phi 
+ (1-\cos\phi)r_xr_y+r_z\sin\phi
+ & \cos\phi+(1-\cos\phi)r_y^2
+ & (1-\cos\phi)r_yr_z-r_x\sin\phi
  \\
- (1-\cos\phi)r_xr_z+r_y\sin\phi 
- &(1-\cos\phi)r_yr_z+r_x\sin\phi 
- & \cos\phi+(1-\cos\phi)r_z^2 
-\\ 
+ (1-\cos\phi)r_xr_z+r_y\sin\phi
+ &(1-\cos\phi)r_yr_z+r_x\sin\phi
+ & \cos\phi+(1-\cos\phi)r_z^2
+\\
 \end{matrix}
 \end{pmatrix}.
 \qquad\qquad(4.30)
@@ -1410,7 +1410,7 @@ $$
 $$
 $$
 \begin{align}
-模规则：\qquad 
+模规则：\qquad
 n(\hat{\mathbf{q}}^*)=&n(\hat{\mathbf{q}}),\\
 n(\hat{\mathbf{q}}\hat{\mathbf{r}})=&n(\hat{\mathbf{q}})n(\hat{\mathbf{r}}).
 \qquad\qquad(4.37)
@@ -1420,7 +1420,7 @@ $$
 ​		乘法定律：
 $$
 \begin{align}
-线性:\qquad 
+线性:\qquad
 \hat{\mathbf{p}}(s\hat{\mathbf{q}}+t\hat{\mathbf{r}})=&
 s\hat{\mathbf{p}}\hat{\mathbf{q}}+t\hat{\mathbf{p}}\hat{\mathbf{r}},
 \\
@@ -1515,17 +1515,17 @@ $$
 \begin{pmatrix}
 \begin{matrix}
 1-s(q_y^2+q_z^2)
-& s(q_xq_z+q_wq_z) 
+& s(q_xq_z+q_wq_z)
 &s(q_xq_z+q_wq_y)&0
-\\ 
+\\
 s(q_xq_y+q_wq_z)
- & 1-s(q_x^2+q_z^2) 
+ & 1-s(q_x^2+q_z^2)
  & s(q_yq_z-q_wq_x) &0
  \\
- s(q_xq_z-q_wq_y) 
- &s(q_yq_z+q_wq_x) 
+ s(q_xq_z-q_wq_y)
+ &s(q_yq_z+q_wq_x)
  & 1-s(q_x^2+q_y^2) &0
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}.
@@ -1539,17 +1539,17 @@ $$
 \begin{pmatrix}
 \begin{matrix}
 1-2(q_y^2+q_z^2)
-& 2(q_xq_z+q_wq_z) 
+& 2(q_xq_z+q_wq_z)
 &2(q_xq_z+q_wq_y)&0
-\\ 
+\\
 2(q_xq_y+q_wq_z)
- & 1-2(q_x^2+q_z^2) 
+ & 1-2(q_x^2+q_z^2)
  & 2(q_yq_z-q_wq_x) &0
  \\
- 2(q_xq_z-q_wq_y) 
- &2(q_yq_z+q_wq_x) 
+ 2(q_xq_z-q_wq_y)
+ &2(q_yq_z+q_wq_x)
  & 1-2(q_x^2+q_y^2) &0
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}.
@@ -1579,9 +1579,9 @@ $$
 ​		此结果将对单位四元数产生以下转换：
 $$
 \begin{align}
-q_w &= \frac{1}{2}\sqrt{tr(\textbf{M}^q)},\qquad\qquad 
+q_w &= \frac{1}{2}\sqrt{tr(\textbf{M}^q)},\qquad\qquad
 q_x=\frac{m_{21}^q-m_{12}^q}{4q_w},\\
-q_y &=\frac{m_{02}^q-m_{20}^q}{4q_w},\qquad\qquad 
+q_y &=\frac{m_{02}^q-m_{20}^q}{4q_w},\qquad\qquad
 q_z=\frac{m_{10}^q-m_{01}^q}{4q_w}. \qquad\qquad(4.49)\\
 \end{align}
 $$
@@ -1671,17 +1671,17 @@ $$
 \begin{pmatrix}
 \begin{matrix}
 e+hv_x^2
-& hv_xv_y-v_z 
+& hv_xv_y-v_z
 &hv_xv_z+v_y&0
-\\ 
+\\
 hv_xv_y+v_z
- & e+hv_y^2 
+ & e+hv_y^2
  & hv_yv_z-v_x &0
  \\
- hv_xv_z-v_y 
- &hy_zv_z-v_x 
+ hv_xv_z-v_y
+ &hy_zv_z-v_x
  & e+hv_z^2 &0
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}.
@@ -1808,11 +1808,11 @@ $$
 \begin{pmatrix}
 \begin{matrix}
 1&0&0&0
-\\ 
+\\
 0&1&0&0
  \\
 0&0&0&0
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}.
@@ -1836,33 +1836,33 @@ $$
 \begin{pmatrix}
 \begin{matrix}
 \frac{2}{r-l}&0&0&0
-\\ 
+\\
 0&\frac{2}{t-b}&0&0
  \\
 0&0&\frac{2}{f-n}&0
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}
 \begin{pmatrix}
 \begin{matrix}
 1&0&0&-\frac{l+r}{2}
-\\ 
+\\
 0&1&0&-\frac{t+b}{2}
  \\
 0&0&1&-\frac{f+n}{2}
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}\\=
 \begin{pmatrix}
 \begin{matrix}
 \frac{2}{r-l}&0&0&-\frac{r+l}{r-l}
-\\ 
+\\
 0&\frac{2}{t-b}&0&-\frac{t+b}{t-b}
  \\
 0&0&\frac{2}{f-n}&-\frac{f+n}{f-n}
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}
@@ -1878,11 +1878,11 @@ $$
 \begin{pmatrix}
 \begin{matrix}
 1&0&0&0
-\\ 
+\\
 0&1&0&0
  \\
 0&0&-1&0
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}.
@@ -1900,11 +1900,11 @@ $$
 \begin{pmatrix}
 \begin{matrix}
 1&0&0&0
-\\ 
+\\
 0&1&0&0
  \\
 0&0&0.5&0.5
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}.
@@ -1920,11 +1920,11 @@ $$
 \begin{pmatrix}
 \begin{matrix}
 \frac{2}{r-l}&0&0&-\frac{r+l}{r-l}
-\\ 
+\\
 0&\frac{2}{t-b}&0&-\frac{t+b}{t-b}
  \\
 0&0&\frac{1}{f-n}&-\frac{n}{f-n}
-\\ 
+\\
 0&0&0&1
 \end{matrix}
 \end{pmatrix}
@@ -1935,10 +1935,73 @@ $$
 
 #### 4.7.2平行投影
 
-​		
+透视投影是比正交投影更复杂的变换，它通常在大多数计算机图形应用程序中使用。 在此平行线在投影之后通常不平行；当然，在极远处它们可能会收敛到一个点。透视更紧密地匹配我们如何感知世界，即更远的物体更小。
 
+​	   首先，我们将提供有益的推导对投影到平面z = -d，d> 0上的透视投影矩阵。我们从世界空间中推导，以简化对世界到视图变换的理解。 此推导之后是更常规使用的矩阵，例如OpenGL [885]。
 
+图4.19。 用于导出透视投影矩阵的符号。 将点p投影到平面z = -d上，d> 0，得出投影点q。 投影是从摄影机位置的角度进行的，在本例中为原点。 右侧的x分量显示了推导中使用的相似三角形。
 
+假设摄像机（视点）位于原点，并且我们要将一个点p投影到平面z = -d，d> 0，从而产生一个新点q =（qx，qy，-d） 。 图4.19描绘了这种情况。 从该图所示的相似三角形中，以下推导得出q的x分量的：
+
+q的其他分量的表达式为qy = -dpy / pz（类似于qx获得），qz = -d。 与上面的公式一起，它们给出了透视投影矩阵Pp，如下所示：
+
+该矩阵可产生正确的透视投影，可通过以下方式确认
+
+最后一步来自以下事实：整个矢量除以w分量（在这种情况下为-pz / d），最后得到1。由于我们要投影到该平面上，因此所得的z值始终为-d。
+
+从直觉上讲，很容易理解为什么齐次坐标允许投影。齐次过程的一种几何解释是将点（px，py，pz）投影到平面w = 1上。
+
+与正交变换一样，还有一个透视变换，而不是实际投影到平面（不可逆）上，而是将视锥从视锥变换为前述的规范视图体积。此处，视锥假定从z = n 开始，结束在z = f，0> n> f。 z = n处的矩形在（l，b，n）处具有最小角，在（r，t，n）处具有最大角。如图4.20所示。
+
+图4.20。 矩阵Pp将视锥转换为单位立方体，也被称为规范视图体积。
+
+参数（l，r，b，t，n，f）确定摄像机的视锥。水平视野由视锥的左右平面（由l和r决定）之间的角度确定。以相同的方式，垂直视野由顶平面和底平面之间的角度（由t和b确定）确定。视野越大，相机“看得越多”。可以通过r̸= -l或t̸= -b来创建不对称的截头视锥。例如，不对称的截头视锥可用于立体观看和虚拟现实（第21.2.3节）。
+
+视野是提供场景感的重要因素。与计算机屏幕相比，眼睛本身具有物理视野。这种关系是：
+
+φ是视场，w是垂直于视线的物体的宽度，d是到物体的距离。例如，一个25英寸的显示器大约为22英寸宽。在12英寸远处，水平视场为85度；在20英寸处为58度；在30英寸处为40度，可以使用相同的公式将摄像机镜头的尺寸转换为视场，例如，对于35mm摄像机的标准50mm镜头（镜框尺寸为36mm），其φ= 2 arctan（36 /（2·50）） = 39.6度。
+
+与物理设置相比，使用更窄的视野将减少透视效果，因为观看者将放大场景。设置较宽的视野将使对象看起来失真（例如使用广角摄像机镜头），尤其是在屏幕边缘附近，并且会放大附近对象的比例。然而，较宽的视野使观看者感觉到物体更大并且更令人印象深刻，并且具有向用户提供有关周围环境的更多信息的优点。
+
+公式4.71给出了将视锥转化为单位立方体的透视变换矩阵：
+
+将转换应用到一个点后，我们将得到另一个点q =（qx，qy，qz，qw）T。此时的w分量qw（通常）将为非零且不等于1。要获得投影点p，我们需要除以qw，即
+
+矩阵Pp总是能看到z = f映射到+1和z = n映射到-1。
+
+远平面以外的对象将被剪切，因此不会出现在场景中。透视投影可以处理取到无穷远的远平面，这使公式4.71变为
+
+综上所述，应用透视变换（以任何形式）Pp，然后进行裁剪和齐次化（除以w），从而得到标准化的设备坐标。
+
+要获得在OpenGL中使用的透视变换，出于与正交变换相同的原因，首先将其与S（1，1，-1，1）相乘。这仅会使等式4.71第三列中的值取反。在应用此镜像变换之后，将近值和远值作为正值输入，其中0 <n'<f'，如传统上将它们呈现给用户一样。但是，它们仍然代表沿世界负z轴（即视线方向）的距离。出于参考目的，这是OpenGL方程：
+
+一个更简单的设置是仅提供垂直视场φ，长宽比a = w / h（其中w×h是屏幕分辨率），n'和f'。 这导致
+
+其中c = 1.0 / tan（φ/ 2）。 该矩阵的作用与旧的gluPerspective（）完全一样，后者是OpenGL Utility Library（GLU）的一部分。
+
+某些API（例如DirectX）将近平面映射到z = 0（而不是z = -1），而将远平面映射到z =1。此外，DirectX使用左手坐标系来定义其投影矩阵。 这意味着DirectX沿z轴正方向看，并以正数表示近和远值。 这是DirectX公式：
+
+DirectX在其文档中使用行优先形式，因此此矩阵通常以转置形式表示。
+
+使用透视变换的一种效果是，计算出的深度值不会随输入pz值线性变化。 使用公式4.74–4.76中的任何一个乘以点p，我们可以看到
+
+其中省略了vx和vy的详细信息，并且常数d和f取决于所选矩阵。 例如，如果我们使用公式4.74，则d =-（f'+ n'）/（f'-n'），e = -2f'n'/（f'-n'）和vx = -pz 。 要获得归一化设备坐标（NDC）中的深度，我们需要除以w分量，结果是
+
+其中zNDC∈[−1，+1]对于OpenGL投影。 可以看出，输出深度zNDC与输入深度pz成反比。
+
+例如，如果n'= 10且f'= 110（使用OpenGL术语），则当pz在负z轴（即中点）下沿60个单位时，归一化设备坐标深度值为0.833，而不是0。 图4.21显示了改变近平面到原点的距离的产生的影响。 近平面和远平面的放置会影响z缓冲区的精度。 第23.7节将进一步讨论这种影响。
+
+图4.21。 改变近平面到原点的距离的效果。 距离f'-n'保持恒定为100。随着近平面变得更靠近原点，更接近远平面的点使用的归一化设备坐标（NDC）深度空间的范围更小。 这会使z缓冲区在较大距离处的准确性降低。
+
+有几种增加深度精度的方法。 一种常见的方法（我们称为反向z）是使用浮点深度或整数存储1.0 − zNDC [978]。 比较如图4.22所示。 Reed [1472]通过仿真显示，使用带反向z的浮点缓冲区可提供最佳精度，这也是整数深度缓冲区（通常每个深度有24bit）的首选方法。 对于标准映射（即非反向z）在变换中分离投影矩阵可降低错误率，如Upchurch和Desbrun [1803]所建议的。 例如，在T = PM的情况下，使用P（Mp）比使用Tp更好。 同样，在[0.5，1.0]的范围内，fp32和int24的精度非常相似，因为fp32具有23bit的尾数。 使zNDC与1 / pz成正比的原因是，它使硬件更简单并且压缩深度值更加成功，这将在23.7节中详细讨论。
+
+图4.22。 使用DirectX变换设置深度缓冲区的不同方法，即zNDC∈[0，+1]。 左上方：标准整数深度缓冲区，此处显示为4位精度（因此y轴上有16个标记）。 右上角：远端平面设置为∞，两个轴上的小位移表明这样做不会损失太多精度。 左下：具有3个指数位和3个尾数位用于浮点深度。 注意，分布在y轴上是非线性的，这使得在x轴上的分布更糟。 右下：浮点深度反转，即1 − zNDC，因此分布要好得多。 （插图由内森·里德（Nathan Reed）提供。）
+
+劳埃德[1063]提出使用深度值的对数来提高阴影贴图的精度。 Lauritzen等[991]使用前一帧的z缓冲区确定最大近平面和最小远平面。 对于屏幕空间深度，Kemen [881]建议对每个顶点使用以下重新映射：
+
+其中w是投影矩阵之后的顶点的w值，而z是顶点着色器的输出z。常数fc为fc = 2 / log2（f +1），其中f为远平面。当仅应用此变换在顶点着色器中时，深度仍将在三角形上被线性插值由GPU在顶点的非线性变换深度之间（公式4.79）。由于对数是单调函数，因此只要分段线性插值与精确的非线性变换深度值之间的差异较小，遮挡剔除硬件和深度压缩技术仍将起作用。对于大多数具有足够的几何细分的情况，这是正确的。但是，也可以对每个片段应用转换。这是通过输出每个顶点的值e = 1 + w来完成的，然后由GPU在三角形上进行插值。然后，像素着色器将片段深度修改为log2（ei）fc / 2，其中ei是e的内插值。当GPU中没有浮点深度并且使用深度较大的距离进行渲染时，此方法是一个很好的选择。
+
+Cozzi [1605]建议使用多个视锥，这可以提高精度以有效地达到任何所需的比率。 视锥在深度方向上分为几个不重叠的较小的子视锥，它们的联合恰好是视锥。 子视锥表以从后到前的顺序渲染。 首先，清除颜色和深度缓冲区，并将所有要渲染的对象分类到它们重叠的每个子视锥中。 对于每个子视锥，设置其投影矩阵，清除深度缓冲区，然后渲染与子视锥重叠的对象。
 ## 5.着色基础
 
 ​		渲染三维对象的图像时，模型不仅应具有适当的几何形状，而且还应具有所需的视觉外观。根据应用程序的不同，其范围可以从写实感（外观与真实物体的照片几乎相同）到出于创造性原因选择的各种类型的风格化外观。有关两者的示例，请参见图5.1。
@@ -2282,6 +2345,3 @@ $$
 ## 22.交叉测试方法
 
 ## 23.图形硬件
-
-
-
