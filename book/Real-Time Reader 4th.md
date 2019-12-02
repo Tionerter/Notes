@@ -1945,7 +1945,7 @@ $$
 
 ​		假设摄像机（视点）位于原点，并且我们要将一个点$\mathbf{p}$投影到平面$z=d,d>0$，从而产生一个新点$\mathbf{q}=(q_x,q_y,-d)$  。 图4.19描绘了这种情况。 从该图所示的相似三角形中，以下推导得出$\mathbf{q} $的$x$分量的：
 $$
-\frac{q_x}{p_z}=\frac{-d}{p_z}\Leftrightarrow 
+\frac{q_x}{p_z}=\frac{-d}{p_z}\Leftrightarrow
 q_x=-d\frac{p_x}{p_z}.
 \qquad\quad(4.67)
 $$
@@ -2521,6 +2521,110 @@ $$
 ​		原则上，可以在几何着色器中执行平面着色，但是最近的实现通常使用顶点着色器。这是通过将每个图元的属性与其第一个顶点相关联并禁用顶点值插值来完成的。禁用插值（可以分别为每个顶点值完成）将导致第一个顶点的值传递到图元中的所有像素。
 
 #### 5.3.2实现样例
+现在，我们将提供一个实现着色模型的示例。 如前所述，我们正在实现的着色模型与从公式5.1中扩展的Gooch模型相似，但修改可与多个光源一起使用。 它由以下描述
+$$\mathbf{c}_{shaded}=\frac{1}{2}\mathbf{c}_{cool}+\sum^n_{i=1}(\mathbf{l}_i\cdot\mathbf{n})^+\mathbf{c}{light}_i(s_i\mathbf{c}_{hightlight}+(1-s_i)\mathbf{c}_{warm}),
+\qquad\qquad(5.19)
+$$
+
+中间值由以下计算：
+$$
+\begin{align}
+\mathbf{c}_{cool}&=(0,0,0.55)+0.25\mathbf{c}_{surface},\\
+\mathbf{c}_{warm}&=(0.3,0.3,0)+0.25\mathbf{c}_{surface},\\
+\mathbf{c}_{hightlight}&=(2,2,2),\\
+\mathbf{r}_{i}&=2(\mathbf{n}\cdot\mathbf{l}_i)\mathbf{n}-\mathbf{l}_i,\\
+\s_i=(100(\mathbf{r}_i\cdot\mathbf{v})-97)^\mp.\\
+\end{align}
+\qquad\qquad(5.20)
+$$
+该公式适合公式5.6中的多光源结构，为方便起见，在此重复：
+$$
+\mathbf{c}_{shaded}=f_{unlit}(\mathbf{n},\mathbf{v})+\sum^n_{i=1}(\mathbf{l}_i\cdot\mathbf{n})^+\mathbf{c}{light}_i f_{lit}(\mathbf{l}_i,\mathbf{n},\mathbf{v}).
+$$
+在这种情况下，照亮和不照亮项的是
+$$
+\begin{align}
+f_{unlit}(\mathbf{n},\mathbf{v})&=\frac{1}{2}\mathbf{c}_{\text{cool}},
+f_{lit}(\mathbf{l}_i,\mathbf{n},\mathbf{v})=s_i\mathbf{c}_{hightlight}+(1-s_i)\mathbf{c}_{warm},
+\end{align}
+\qquad\qquad(5.21)
+$$
+
+调整冷色项的不亮贡献，使结果看起来更像原始方程式。
+
+在大多数典型的渲染应用程序中，诸如$\mathbf{c}_{surface}$之类的材质属性的变化值将存储在顶点数据中，或更常见的是存储在纹理中（第6章）。 但是，为使此实现示例简单，我们将假设$\mathbf{c}_{surface}$在整个模型中是恒定的。
+
+此实现将使用着色器的动态分支功能遍历所有光源。虽然这种简单的方法可以在相当简单的场景中很好地使用，但对于具有许多光源的大型且复杂的几何场景却无法很好地缩放。第20章将介绍有效处理大量光源的渲染技术。此外，为了简单起见，我们将仅支持一种光源：点光源。尽管实现非常简单，但是它是前面介绍的最佳实践。
+
+着色模型不是孤立实现的，而是在更大的渲染框架中实现的。这个例子是在一个简单的WebGL 2应用程序中实现的，该应用程序由Tarek Sherif [1623]的“ Phong-shaded Cube” WebGL 2示例进行了修改，但是相同的原理也适用于更复杂的框架。
+
+我们将讨论来自应用程序的GLSL着色器代码和JavaScript WebGL调用的一些示例。目的不是讲授WebGL API的细节，而是展示普遍的实现原理。我们将以“由内而外”的顺序进行实现，首先是像素着色器，然后是顶点着色器，最后是应用程序方向的图形API调用。
+
+在着色器代码完全之前，着色器源包括着色器输入和输出的定义。 如第3.3节中所述，使用GLSL术语，着色器输入分为两类。 其中之一是一组统一的输入，这些输入值由应用程序设置并且在绘制调用中保持不变。 另一种类型由变化的输入组成，这些输入值可以在着色器调用（像素或顶点）之间改变。 在这里，我们看到像素着色器的各种输入（在GLSL中被标记）及其输出的定义：
+
+in vec3 vPos;
+in vec3 vNormal;
+out vec4 outColor;
+
+此像素着色器具有单个输出，即最终的着色颜色。 像素着色器输入与顶点着色器输出匹配，顶点着色器输出在送到像素着色器之前由三角形上进行插值。 该像素着色器具有两个不同的输入：表面位置和表面法线，两者都在应用程序的世界空间坐标系中。统一输入的数量要大得多，因此，为了简便起见，我们仅显示两个定义，这两者均与光源有关：
+struct Light {
+  vec4 position;
+  vec4 color;
+ };
+uniform LightUBlock {
+  Light uLights[MAXLIGHTS];
+};
+uniform uint uLightCount;
+由于这些是点光源，因此每个光源的定义都包括一个位置和一个颜色。 为了符合GLSL std140数据设计标准的限制，将它们定义为vec4而不是vec3。 尽管在这种情况下std140布局可能会导致一些空间的浪费，但它简化了确保CPU和GPU之间的数据设计一致的任务，这就是我们在此示例中使用它的原因。 Light结构体数组是在一个统一块内定义的，该块是GLSL功能，用于将一组统一变量绑定到缓冲区对象，以加快数据传输速度。 数组长度定义为等于应用程序在单个绘制调用中允许的最大灯光数量。 稍后我们将看到，应用程序在编译着色器之前将着色器源中的MAXLIGHTS字符串替换为正确的值（本例中为10）。 统一整型uLightCount是绘制调用中的实际处于激活状态的灯光数。
+接下来，我们将看一下像素着色器代码：
+vec3 lit(vec3 l, vec3 n, vec3 v) {
+vec3 r_l = reflect(-l, n);
+float s = clamp(100.0 * dot(r_l, v) - 97.0, 0.0, 1.0); vec3 highlightColor = vec3(2,2,2);
+return mix(uWarmColor , highlightColor , s);
+}
+void
+main () {
+vec3 n = normalize(vNormal);
+vec3 v = normalize(uEyePosition.xyz - vPos);
+outColor = vec4(uFUnlit , 1.0);
+for (uint i = 0u; i < uLightCount; i++) {
+  vec3 l = normalize(uLights[i].position.xyz - vPos); float NdL = clamp(dot(n, l), 0.0, 1.0);
+  outColor.rgb += NdL * uLights[i].color.rgb * lit(l,n,v);
+  }
+}
+我们有一个关于照亮项的函数定义，它由main（）函数调用。总的来说，这是方程式5.20和5.21的简单GLSL实现。请注意，$f_{unlit}()$和$\mathbf{c}warm$的值作为统一变量传入。由于这些值在整个绘制调用中是恒定的，因此应用程序可以计算这些值，从而节省了一些GPU周期。
+
+该像素着色器使用了几个内置的GLSL函数。 reflect（）函数反射一个向量（在此情况下为光向量）在第二个向量（在这种情况下是表面法线）定义的平面上。由于我们希望光向量和反射向量都指向远离表面的位置，因此我们需要将前者传递给reflect（）之前对其取反。 clamp（）函数具有三个输入。其中两个限制了第三个输入的范围。在大多数GPU上，到0到1（与HLSL saturate（）函数相对应）之间的范围的夹取是快速的，通常有高效的释放。这就是为什么我们在这里使用它的原因，尽管我们只需要将值限制到0（因为我们知道它不会超过1）。函数mix（）也具有三个输入，并在两个输入之间线性插值，即暖色和高光颜色在这种情况下，取决第三个值（介于0和1之间的混合参数）。在HLSL中，此函数称为lerp（），用于“线性插值”。最后，normalize（）将向量除以其长度，将其长度缩放到1。
+
+现在让我们看一下顶点着色器。由于我们已经看到了像素着色器的一些统一定义（uniform definitions）示例，因此我们将不显示其任何统一定义，但是变化的输入和输出定义值得研究：
+layout(location=0) in vec4 position;
+layout(location=1) in vec4 normal;
+out vec3 vPos;
+out vec3 vNormal;
+
+请注意，如前所述，顶点着色器输出与像素着色器变化的输入匹配。 输入包含指令，这些指令指定如何在顶点数组中排列数据。 接下来是顶点着色器代码：
+
+void
+main () {
+vec4 worldPosition = uModel * position;
+vPos = worldPosition.xyz;
+vNormal = (uModel * normal).xyz;
+gl_Position = viewProj * worldPosition;
+}
+
+这些是顶点着色器的常用操作。着色器将表面位置和法线转换为世界空间，并将它们传递给像素着色器以用于着色。最后，将表面位置转换为裁剪空间，并将其传递给gl_position，这是是光栅器使用的特殊系统定义的变量。 gl_position变量是任何顶点着色器的必需输出。
+
+请注意，法线向量未在顶点着色器中归一化。由于它们在原始网格数据中的长度为1，因此不需要进行归一化，并且此应用程序不会执行任何可能会不均匀改变其长度的操作，例如顶点混合或不均匀缩放。模型矩阵可以具有统一的缩放因子，但是会成比例地改变所有法线的长度，因此不会导致图5.10右侧所示的问题。
+
+该应用程序使用WebGL API进行各种渲染和着色器设置。每个可编程着色器阶段都是单独设置的，然后将它们都绑定到一个程序对象。这是像素着色器设置代码：
+
+var fSource = document.getElementById("fragment").text.trim(); var maxLights = 10;
+fSource = fSource.replace(/MAXLIGHTS/g, maxLights.toString());
+var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER); gl.shaderSource(fragmentShader , fSource); gl.compileShader(fragmentShader);
+
+请注意“片段着色器”参考。 WebGL（以及它所基于的OpenGL）使用此术语。如本书前面所述，尽管“像素着色器”在某些方面不那么明确，但它是更常见的用法，我们在本书中将继续进行。该代码也是将MAXLIGHTS字符串替换为适当的数值的地方。大多数渲染框架执行类似的预编译着色器操作。
+
+还有更多的应用程序端代码用于设置统一，初始化顶点数组，清除，绘制等，您可以在程序[1623]中查看这些代码，并且许多API指南对此进行了说明。我们的目标是理解着色器如何被视为单独的处理器在它们自身的编程环境下。因此，我们现在结束本示例。
 
 ### 5.4锯齿和抗锯齿
 
