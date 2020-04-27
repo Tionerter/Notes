@@ -1,39 +1,18 @@
+# 项目结构
+
+Note文件夹下存放的是md文件(不包含图片)
+
+PDF文件夹下存放的是完整导出后的pdf文件(图片已被添加进去)
+
+
+
 # Note list
 
-- <Real-Time render 4th>
-- <游戏设计艺术>
+- Real-Time render 4th
+- 游戏设计艺术
+- 3D数学基础:图形与游戏开发
+- Fundamental of Computer Graphics 4th
+- Head-first 设计模式
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 注意事项
-
-书名一级标题
-
-大章节二级标题
-
-小章节三级标题1.1
-
-图片文字大小为2
-
-批注文字大小为1
 
