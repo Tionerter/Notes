@@ -53,3 +53,7 @@
 向量可以被视为一个列数为1的矩阵
 
 ![image-20200505221622302]( image-20200505221622302.png)
+
+参考文献:
+
+1.https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_01.pdf

@@ -118,3 +118,11 @@ A= \left\{ \begin{array}{cccc|c} a & b & c & d & e\\ f & g & h & i & j \\ k & l 
 ![image-20200507153203006](image-20200507153203006.png)
 
 ![image-20200507153222882](image-20200507153222882.png)
+
+
+
+参考文献:
+
+1.http://www.mohu.org/info/symbols/symbols.htm
+
+2.https://www.jianshu.com/p/756bc7e0ef6d
